@@ -57,7 +57,7 @@
           <ul v-if="persons.length > 0">
             <li v-for="person in persons" class="inner-list">
               <div>{{ person.first + " " + person.last + ", " + person.position }}</div>
-              <div @clicked="deletePerson(person.id)">X</div>
+              <div @click="deletePerson(person.id)">X</div>
             </li>
           </ul>
         </li>
@@ -138,15 +138,22 @@ export default {
         this.$router.push("/tasks");
       });
     },
+    deletePerson (id){
+                db.delete('js4personstasks',{id}).then(()=> {
+                    db.get('js4personstasks?taskid=' + this.$route.params.id).then((persons) => {
+                        this.persons=persons
+                    })
+                })
+            },
     markCompleted() {
       const newValue = this.task.completed ? 0 : 1;
-        db.put("js4tasks", {
-          id: this.task.id,
-          completed: newValue,
-        }).then(() => {
-          this.fetchRecord();
-        });
-      },
+      db.put("js4tasks", {
+        id: this.task.id,
+        completed: newValue,
+      }).then(() => {
+        this.fetchRecord();
+      });
+    },
     fetchRecord() {
       return db.get("js4tasks/" + this.$route.params.id).then((record) => {
         this.task = record;
@@ -178,16 +185,20 @@ export default {
     onChanged(payload) {
       this.personToAdd = payload.value;
     },
-    deletePerson(id){
-      db.delete('js4personstasks', (id)).then(() => 
-                db.get('js4personstasks?taskid=' + this.$route.params.id).then((persons) => {
-                this.persons=persons
-
-            }) )
-    }
   },
   components: { BasePage, BaseButton, BaseModal, BaseControl },
 };
 </script>
 
-<style></style>
+<style>
+  .inner-list{
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+    .inner-list div:last-child {
+        cursor: pointer;
+    }
+</style>
+
