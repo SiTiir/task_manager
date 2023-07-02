@@ -35,7 +35,7 @@ export default {
 
 </script>
 
-<style >
+<style scoped>
 li {
   padding: 12px;
   font-family: Roboto_light;
@@ -46,9 +46,9 @@ li {
   cursor: pointer;
 }
 
-li :hover {
-background-color: #9acece;
-width: 100%;
+li:hover {
+    background-color: #9acece;
+
 }
 
 .header {

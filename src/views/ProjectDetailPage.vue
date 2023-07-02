@@ -32,7 +32,7 @@
             <p v-else>No tasks to display</p>
         </template>
         <template v-slot:thirdLine>
-            <BaseButton label="add task"/>
+            <BaseButton label="add task" @clicked="onAddClicked"/>
             <BaseButton 
                 label="delete project" 
                 @clicked="showDelete= true"
@@ -75,6 +75,9 @@ import BaseModal from '../components/BaseModal.vue';
                 db.delete('js4projects', {id:this.project.id}).then(() => {
                     this.$router.push('/projects')
                 })
+            },
+            onAddClicked() {
+                this.$router.push('/taskformproject/' + this.project.id)
             }
         },
         computed: {

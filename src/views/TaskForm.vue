@@ -37,6 +37,9 @@ export default {
             )
         }
         Promise.all(promises).then(() => {
+            if(this.$route.params.projectid) {
+                this.settings.projectid.initialValue = this.$route.params.projectid
+            }
             this.loading = false
         }) 
         

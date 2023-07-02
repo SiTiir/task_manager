@@ -84,6 +84,12 @@ const router = createRouter({
       component: () => import('../views/TaskForm.vue')
 
     },
+    {
+      path: '/taskformproject/:projectid',
+      name: 'taskFormProject',
+      component: () => import('../views/TaskForm.vue')
+
+    },
   ]
 })
 
